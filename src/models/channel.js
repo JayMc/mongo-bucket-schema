@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const channelSchema = new Schema({
 	name:  String,
-	num_buckets: Number
+	num_buckets: Number,
+	createdAt: Date
 });
 
-export default mongoose.model('channel', channelSchema);
+export default mongoose.model('Channel', channelSchema);

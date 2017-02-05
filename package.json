@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/JayMc/mongo-bucket-schema#readme",
   "dependencies": {
+    "bluebird": "^3.4.7",
     "mongoose": "^4.8.1"
   },
   "devDependencies": {

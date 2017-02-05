@@ -2,6 +2,12 @@ import Promise from 'bluebird';
 import Channel from '../models/channel';
 import CommentBucket from '../models/comment-bucket';
 
+// This uses the channel.buckets to know which bucket to insert the new comment into
+// Result: Problem is on a large number of serial writes it doesn't adhear to the comments limit
+// some comment sizes are 1 while others are 6. the limit should be 3
+// maybe something to do with a race condition updating channel.uckets not fast enough
+// this could be fixed if Monog supported transactions.
+
 const findChannelPromise = Promise.promisify(findChannel);
 const insertCommentPromise = Promise.promisify(insertComment);
 const updateBucketCountPromise = Promise.promisify(updateBucketCount);

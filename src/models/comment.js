@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
 	author: String,
-	text: String,
-	createdAt: Date
+	body: String
 });
 
 export default commentSchema;

@@ -6,8 +6,8 @@ const commentBucketSchema = new Schema({
 	channel_id:  String,
 	bucket: Number,
 	count: Number,
-	createdAt: Date
-	items: [commentSchema]
+	createdAt: Date,
+	comments: [commentSchema]
 });
 
 export default mongoose.model('CommentBucket', commentBucketSchema);

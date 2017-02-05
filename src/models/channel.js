@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const channelSchema = new Schema({
 	name:  String,
-	num_buckets: Number,
+	buckets: Number,
 	createdAt: Date
 });
 

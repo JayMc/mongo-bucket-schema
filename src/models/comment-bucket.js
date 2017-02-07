@@ -7,6 +7,7 @@ const commentBucketSchema = new Schema({
 	bucket: Number,
 	count: Number,
 	createdAt: Date,
+	modifiedAt: Date,
 	comments: [commentSchema]
 });
 

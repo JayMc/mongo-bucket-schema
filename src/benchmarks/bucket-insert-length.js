@@ -7,16 +7,19 @@ import CommentBucket from '../models/comment-bucket';
 // Result: Worked much better than using channel.buckets to keep track of which comment-bucket to use.
 // becuase this is a single locking document operation that are no race conditions
 
+const commentBucketLimit = 3;
+
 const insertCommentPromise = Promise.promisify(insertComment);
 
 function insertComment (channel_id, newComment, callback) {
 	CommentBucket.findOneAndUpdate(
 		{
 			'channel_id': channel_id,
-			'count': { $lt: 3 },
+			'count': { $lt: commentBucketLimit },
 		},
 		{
 			'$inc': { 'count': 1 },
+			'modifiedAt': new Date(),
 			'$push': {
 				'comments': {
 					author: newComment.author,
@@ -28,7 +31,8 @@ function insertComment (channel_id, newComment, callback) {
 		{
 			upsert: true ,
 			new: true,
-			sort: { 'createdAt': -1 }
+			// sort: { 'createdAt': -1 }
+			sort: { 'modifiedAt': -1 }
 		},
 		function(err, commentBucket) {
 			callback(err, commentBucket)
@@ -39,6 +43,6 @@ export default function(channel_id, comment, callback) {
 	return insertCommentPromise(channel_id, comment)
 		.then((commentBucket) => {
 
-			console.log('commentBucket',commentBucket);
+			console.log('commentBucket count ',commentBucket.count);
 		});
 }

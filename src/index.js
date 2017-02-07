@@ -12,6 +12,7 @@ const bucketInsertPromise = Promise.promisify(bucketInsert);
 const loop = Promise.coroutine(function* () {
 	for (var i = 0; i < 1000; i++) {
 		try {
+			console.time('test')
 			// yield bucketInsert('58967e51c8a0222b68132f32', {
 			// 	author: 'Guy',
 			// 	body: `Some message ${i}`
@@ -20,6 +21,7 @@ const loop = Promise.coroutine(function* () {
 				author: 'Guy',
 				body: `Some message ${i}`
 			})
+			console.timeEnd('test')
 		} catch (err) {
 			console.log('err',err);
 		}
